@@ -16,8 +16,14 @@ public class SuperArray{
 	a.add();
 	a.add(1,"second");
 	a.add(5,"seventh");
-	a.remove(3);
 	System.out.println(a);
+	while (a.size() > 4){
+	    a.remove(3);
+	}
+	System.out.println(a);
+	a.clear();
+	System.out.println(a);
+
     }
 
     public SuperArray(){
@@ -48,7 +54,7 @@ public class SuperArray{
     public void add(int index, Object o){
 	if (index >= 0 && index <= size() + 1){
 	    if (size() >= array.length){
-		resize(size()+1);
+		resize(size()+5);
 	    }
 	    length ++;
 	    for (int i = size();i > index; i--){
@@ -64,6 +70,9 @@ public class SuperArray{
 	    array[i] = array[i + 1];
 	}
 	length--;
+		if (size() < array.length - 10){
+		    resize(size() + 5);
+		}
 	return removed;
     }
 
