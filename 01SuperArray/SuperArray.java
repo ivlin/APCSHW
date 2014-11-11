@@ -9,15 +9,21 @@ public class SuperArray{
 	a.add();
 	a.set(0,"first");
 	a.add(1,"second");
+	try{
+	    a.set(1,"hi");
+	    a.get(100);
+	}
+	catch (IndexOutOfBoundsException e){
+	    System.out.println("Index out of bounds");
+	}
 	System.out.println(a);
-	//	a.resize(10010);
-	for (int i = 0; i < 1000; i ++){
+	for (int i = 0; i < 400; i ++){
 	    a.add(i);
 	}
 	System.out.println(a);
 	System.out.println(a.get(4));
 	System.out.println(a.get(15));
-	for (int i = 0; i < 999; i ++){
+	for (int i = 0; i < 399; i ++){
 	    a.remove(2);
 	}
 	System.out.println(a);
@@ -88,6 +94,7 @@ public class SuperArray{
     }
 
     public void clear(){
+	resize(10);
 	for (int i = 0; i < array.length; i++){
 	    array[i] = null;
 	}
@@ -95,11 +102,10 @@ public class SuperArray{
     }
 
     public Object get(int index){
-	if (inRange(index)){
-	    return array[index];
+	if (!inRange(index)){
+	    throw new IndexOutOfBoundsException();
 	}
-	System.out.println("Index out of range");
-	return null;
+	return array[index];
     }
 
     public Object set(int index, Object o){
@@ -108,7 +114,7 @@ public class SuperArray{
 	    replaced = array[index];
 	    array[index] = o;
 	}else{
-	    //error
+	    throw new IndexOutOfBoundsException();
 	}
 	return replaced;
     }
