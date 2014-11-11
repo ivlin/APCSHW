@@ -6,22 +6,20 @@ public class SuperArray{
 	SuperArray a = new SuperArray();
 	System.out.println(a);
 	System.out.println(a.size());
-	for (int i = 0; i < 5; i++){
+	a.add();
+	a.set(0,"first");
+	a.add(1,"second");
+	System.out.println(a);
+	//	a.resize(10010);
+	for (int i = 0; i < 1000; i ++){
 	    a.add(i);
 	}
 	System.out.println(a);
-	System.out.println(a.size());
 	System.out.println(a.get(4));
 	System.out.println(a.get(15));
-	a.add();
-	a.add(1,"second");
-	a.add(5,"seventh");
-	System.out.println(a);
-	while (a.size() > 4){
-	    a.remove(3);
+	for (int i = 0; i < 999; i ++){
+	    a.remove(2);
 	}
-	System.out.println(a);
-	a.clear();
 	System.out.println(a);
 
     }
@@ -52,16 +50,14 @@ public class SuperArray{
     }
 
     public void add(int index, Object o){
-	if (index >= 0 && index <= size() + 1){
-	    if (size() >= array.length){
-		resize(size()+5);
-	    }
-	    length ++;
-	    for (int i = size();i > index; i--){
-		array[i] = array[i - 1];
-	    }
-	    array[index] = o;
+	length ++;
+	if (size() >= array.length){
+	    resize(size() * 2);
 	}
+	for (int i = size();i > index; i--){
+	    array[i] = array[i - 1];
+	}
+	array[index] = o;
     }
 
     public Object remove(int index){
@@ -70,9 +66,9 @@ public class SuperArray{
 	    array[i] = array[i + 1];
 	}
 	length--;
-		if (size() < array.length - 10){
-		    resize(size() + 5);
-		}
+	if (size() < array.length / 4){
+	    resize(array.length / 2);
+	}
 	return removed;
     }
 
@@ -112,8 +108,7 @@ public class SuperArray{
 	    replaced = array[index];
 	    array[index] = o;
 	}else{
-	    System.out.println("Index out of range");
-	    replaced = null;
+	    //error
 	}
 	return replaced;
     }
