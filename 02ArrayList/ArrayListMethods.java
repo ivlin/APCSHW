@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Random;
-public class Test{
+import java.util.*;
+public class ArrayListMethods{
     public static void main(String[]args){
 	Random rand = new Random();
 	ArrayList<Integer> a = new ArrayList<Integer>();
@@ -10,6 +9,8 @@ public class Test{
 	System.out.println(a);
 	collapseDuplicates(a);
 	System.out.println(a);
+	randomize(a);
+	System.out.println(a);
     }
     
     public static void collapseDuplicates(ArrayList x){
@@ -17,6 +18,13 @@ public class Test{
 	    if (x.get(i) == x.get(i-1)){
 		x.remove(i);
 	    }
+	}
+    }
+
+    public static void randomize(ArrayList<Integer> L){
+	Random rand = new Random();
+	for (int i = 0; i < L.size(); i ++){
+	    L.set(i, L.get(i + rand.nextInt(L.size() - i)));
 	}
     }
 }
