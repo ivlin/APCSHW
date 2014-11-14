@@ -24,7 +24,8 @@ public class ArrayListMethods{
     public static void randomize(ArrayList<Integer> L){
 	Random rand = new Random();
 	for (int i = 0; i < L.size(); i ++){
-	    L.set(i, L.get(i + rand.nextInt(L.size() - i)));
+	    int hold = (i + rand.nextInt(L.size() - i));
+	    L.set(hold,L.set(i, L.get(hold)));
 	}
     }
 }
