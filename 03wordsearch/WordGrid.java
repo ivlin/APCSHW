@@ -2,7 +2,9 @@ public class WordGrid{
     private char[][]data;
 
     public static void main(String[]args){
-	WordGrid a = new WordGrid(4,6);
+	WordGrid a = new WordGrid(10,10);
+	System.out.println(a);
+	a.addWordHorizontal("Hello",7,2);
 	System.out.println(a);
     }
 
@@ -20,7 +22,7 @@ public class WordGrid{
     private void clear(){
 	for (int x = 0; x < data.length; x++){
 	    for (int y = 0; y < data[x].length; y++){
-		data[x][y] = ' ';
+		data[x][y] = '';
 	    }
 	}
     }
@@ -33,7 +35,7 @@ public class WordGrid{
 	String str = "";
 	for (int x = 0; x < data.length; x++){
 	    for (int y = 0; y < data[x].length; y++){
-		str += data[x][y];
+		str += data[x][y] + ' ';
 	    }
 	    str += '\n';
 	}
@@ -50,8 +52,12 @@ public class WordGrid{
      *@return true when the word is added successfully. When the word doesn't fit,
      *or there are overlapping letters that do not match, then false is returned.
      */
-    //public boolean addWordHorizontal(String word,int row, int col){	
-	//    }
+    public boolean addWordHorizontal(String word, int row, int col){	
+	for (int i = 0; i < word.length(); i++){
+	    data[row][col + i] = word.charAt(i);
+	}
+	return true;
+    }
 
     //vertical + diagonal should be implemented as well.
 }
