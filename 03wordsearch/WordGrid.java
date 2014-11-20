@@ -3,8 +3,10 @@ public class WordGrid{
 
     public static void main(String[]args){
 	WordGrid a = new WordGrid(10,10);
-	System.out.println(a);
 	a.addWordHorizontal("Hello",7,2);
+	a.addWordVertical("Greetings",1,1);
+	a.addWordDiagonalNE("Find",5,3);
+	a.addWordDiagonalSE("Me",4,8);
 	System.out.println(a);
     }
 
@@ -16,6 +18,7 @@ public class WordGrid{
      */
     public WordGrid(int rows,int cols){
 	data = new char[rows][cols];
+	clear();
     }
 
     /**Set all values in the WordGrid to spaces ' '*/
@@ -52,14 +55,44 @@ public class WordGrid{
      *@return true when the word is added successfully. When the word doesn't fit,
      *or there are overlapping letters that do not match, then false is returned.
      */
-    public boolean addWordHorizontal(String word, int row, int col){	
-	//	if (fits
-	for (int i = 0; i < word.length(); i++){
-	    data[row][col + i] = word.charAt(i);
+    public boolean addWordHorizontal(String word, int row, int col){
+	boolean fits = word.length() + col <= data[row].length;
+	if (fits){	
+	    for (int i = 0; i < word.length(); i++){
+		data[row][col + i] = word.charAt(i);
+	    }
 	}
-	return true;
+	return fits;
+    }
+
+    public boolean addWordVertical(String word, int row, int col){
+	boolean fits = word.length() + row <= data.length;
+	if (fits){	
+	    for (int i = 0; i < word.length(); i++){
+		data[row + i][col] = word.charAt(i);
+	    }
+	}
+	return fits;
+    }
+
+    public boolean addWordDiagonalNE(String word, int row, int col){
+	boolean fits = word.length() < row && word.length() + col <= data[row].length;
+	if (fits){	
+	    for (int i = 0; i < word.length(); i++){
+		data[row - i][col + i] = word.charAt(i);
+	    }
+	}
+	return fits;
     }
 
 
-    //vertical + diagonal should be implemented as well.
+    public boolean addWordDiagonalSE(String word, int row, int col){
+	boolean fits = word.length() + row <= data.length && word.length() + col <= data[row].length;
+	if (fits){	
+	    for (int i = 0; i < word.length(); i++){
+		data[row + i][col + i] = word.charAt(i);
+	    }
+	}
+	return fits;
+    }
 }
