@@ -22,7 +22,7 @@ public class WordGrid{
     private void clear(){
 	for (int x = 0; x < data.length; x++){
 	    for (int y = 0; y < data[x].length; y++){
-		data[x][y] = '';
+		data[x][y] = ' ';
 	    }
 	}
     }
@@ -35,7 +35,7 @@ public class WordGrid{
 	String str = "";
 	for (int x = 0; x < data.length; x++){
 	    for (int y = 0; y < data[x].length; y++){
-		str += data[x][y] + ' ';
+		str += data[x][y] + " ";
 	    }
 	    str += '\n';
 	}
@@ -53,11 +53,13 @@ public class WordGrid{
      *or there are overlapping letters that do not match, then false is returned.
      */
     public boolean addWordHorizontal(String word, int row, int col){	
+	//	if (fits
 	for (int i = 0; i < word.length(); i++){
 	    data[row][col + i] = word.charAt(i);
 	}
 	return true;
     }
+
 
     //vertical + diagonal should be implemented as well.
 }
