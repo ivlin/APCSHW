@@ -11,7 +11,7 @@ public class WordGrid{
 	a.addWordDiagonalSE("Me",4,8);*/
 	a.addWordVertical("CHARLMAGNE",0,5);
 	System.out.println(a);
-	a.fixOverlap("ENERGY",9,5);
+	a.fixOverlap("ENERGY",3,5);
 	System.out.println(a);
     }
 
@@ -147,27 +147,20 @@ public class WordGrid{
     }
 
 
-    private void fixOverlap(String word, int intersectY, int intersectX){
+    private boolean fixOverlap(String word, int intersectY, int intersectX){
         for (int i = 0; i < word.length(); i++){
-
-
-	    
 	    if (word.charAt(i) == data[intersectY][intersectX]){
 		for (int x = -1; x <= 1; x ++){
 		    for (int y = -1; y <= 1; y++){
-			if (checkSpace(intersectY, intersectX, -x, -y) >= i &&
-			    checkSpace(intersectY, intersectX, x, y) >= word.length() - i){
-			    addWord(word, intersectY - i, intersectX + (word.length() - i - 1), x, y);
-			    break;
+			if (checkSpace(intersectY, intersectX, -y, -x) >= i &&
+			    checkSpace(intersectY, intersectX, y, x) >= word.length() - i){
+			    addWord(word, intersectY - i * y, intersectX - i * x, y, x);
+			    return true;
 			}
 		    }
 		}
-
-
-
-	    }else{
-		//find new location
 	    }
 	}
+	return false;
     }
 }
