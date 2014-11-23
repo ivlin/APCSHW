@@ -9,9 +9,9 @@ public class WordGrid{
 	a.addWordVertical("Greetings",1,1);
 	a.addWordDiagonalNE("Find",5,3);
 	a.addWordDiagonalSE("Me",4,8);*/
-	a.addWordVertical("CHARLMAGNE",0,5);
+	a.addWordVertical("charlmagne",0,5);
 	System.out.println(a);
-	a.fixOverlap("ENERGY",3,5);
+	a.fixOverlap("energy",3,5);
 	System.out.println(a);
     }
 
@@ -68,6 +68,7 @@ public class WordGrid{
      */
     public boolean addWordHorizontal(String word, int row, int col){
 	boolean fits = word.length() + col <= data[row].length;
+	System.out.println(fits);
 	if (fits){      
 	    addWord(word, row, col, 0, 1);
 	}
@@ -130,17 +131,25 @@ public class WordGrid{
 
 
     private void addWord(String word, int startY, int startX, int shiftY, int shiftX){
-	for (int i = 0; i < word.length(); i++){
-	    data[startY + i * shiftY][startX + i * shiftX] = word.charAt(i);
+	int distance = checkSpace(startY, startX, shiftY, shiftX);
+	int endY = startY + distance * shiftY;
+	int endX = startX + distance * shiftX;
+       	if (distance >= word.length()){
+	    for (int i = 0; i < word.length(); i++){
+		data[startY + i * shiftY][startX + i * shiftX] = word.charAt(i);
+	    }
+	}else if(endY >= 0 && endY < data.length && endX >=0 && endX < data[0].length){
+	    fixOverlap(word, endY, endX);
+	}else{
+	    // addWordHorizontal(word, 0, 0);
 	}
     }
 
     private int checkSpace(int startY, int startX, int shiftY, int shiftX){
-	int i = 0;
+	int i = 1;
 	int nextY = startY + shiftY;
 	int nextX = startX + shiftX;
 	if (nextY >= 0 && nextY < data.length && nextX >= 0 && nextX < data[0].length && data[nextY][nextX] == '.'){
-	    i = 1;
 	    i += checkSpace(startY + shiftY, startX + shiftX, shiftY, shiftX);
 	}
 	return i;
@@ -154,7 +163,9 @@ public class WordGrid{
 		    for (int y = -1; y <= 1; y++){
 			if (checkSpace(intersectY, intersectX, -y, -x) >= i &&
 			    checkSpace(intersectY, intersectX, y, x) >= word.length() - i){
-			    addWord(word, intersectY - i * y, intersectX - i * x, y, x);
+			    System.out.println("" + (intersectY - y * i) + (intersectX - x * i) + word.substring(0,i));
+			    addWord(word.substring(0,i), intersectY - y * i, intersectX - x * i, y, x);
+			    addWord(word.substring(i,word.length()), intersectY, intersectX, y, x);
 			    return true;
 			}
 		    }
