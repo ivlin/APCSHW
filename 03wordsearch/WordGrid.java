@@ -1,18 +1,35 @@
 import java.util.*;
+import java.io.*;
 public class WordGrid{
     private char[][]data;
 
-    public static void main(String[]args){
+    public static void main(String[]args) throws FileNotFoundException{
+	Random rand = new Random();
 	WordGrid a = new WordGrid(10,10);
-	/*
+	
 	a.addWordHorizontal("Hello",7,2);
 	a.addWordVertical("Greetings",1,1);
 	a.addWordDiagonalNE("Find",5,3);
-	a.addWordDiagonalSE("Me",4,8);*/
+	a.addWordDiagonalSE("Me",4,8);
 	a.addWordVertical("charlmagne",0,5);
 	System.out.println(a);
-	a.fixOverlap("energy",3,5);
+	a.addWordHorizontal("energy",3,2);
+	a.addWordVertical("cologne",2,7); 
 	System.out.println(a);
+	
+
+	File infile = new File("./wordlist.txt");
+	Scanner sc = new Scanner(infile);
+	sc.useDelimiter(" ");
+	ArrayList<String> wordList = new ArrayList<>();
+	while (sc.hasNext()){
+	    wordList.add(sc.next());
+	}
+	for (int i = 0; i < wordList.size(); i++){
+	    a.addWord(wordList.get(i), rand.nextInt(a.data.length), rand.nextInt(a.data[0].length), 0, 1);
+	}
+	System.out.println(a);
+
     }
 
 
@@ -31,6 +48,7 @@ public class WordGrid{
     public WordGrid(){
 	this(10,10);
     }
+
 
     /**Set all values in the WordGrid to spaces ' '*/
     private void clear(){
@@ -68,7 +86,6 @@ public class WordGrid{
      */
     public boolean addWordHorizontal(String word, int row, int col){
 	boolean fits = word.length() + col <= data[row].length;
-	System.out.println(fits);
 	if (fits){      
 	    addWord(word, row, col, 0, 1);
 	}
@@ -134,14 +151,12 @@ public class WordGrid{
 	int distance = checkSpace(startY, startX, shiftY, shiftX);
 	int endY = startY + distance * shiftY;
 	int endX = startX + distance * shiftX;
-       	if (distance >= word.length()){
+       	if (distance >= word.length() && data[startY][startX] == '.'){
 	    for (int i = 0; i < word.length(); i++){
 		data[startY + i * shiftY][startX + i * shiftX] = word.charAt(i);
 	    }
 	}else if(endY >= 0 && endY < data.length && endX >=0 && endX < data[0].length){
 	    fixOverlap(word, endY, endX);
-	}else{
-	    // addWordHorizontal(word, 0, 0);
 	}
     }
 
@@ -161,9 +176,8 @@ public class WordGrid{
 	    if (word.charAt(i) == data[intersectY][intersectX]){
 		for (int x = -1; x <= 1; x ++){
 		    for (int y = -1; y <= 1; y++){
-			if (checkSpace(intersectY, intersectX, -y, -x) >= i &&
+			if (checkSpace(intersectY, intersectX, -y, -x) > i &&
 			    checkSpace(intersectY, intersectX, y, x) >= word.length() - i){
-			    System.out.println("" + (intersectY - y * i) + (intersectX - x * i) + word.substring(0,i));
 			    addWord(word.substring(0,i), intersectY - y * i, intersectX - x * i, y, x);
 			    addWord(word.substring(i,word.length()), intersectY, intersectX, y, x);
 			    return true;
