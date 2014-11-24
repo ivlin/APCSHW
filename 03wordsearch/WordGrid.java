@@ -6,27 +6,15 @@ public class WordGrid{
     public static void main(String[]args) throws FileNotFoundException{
 	Random rand = new Random();
 	WordGrid a = new WordGrid(10,10);
-	
-	a.addWordHorizontal("Hello",7,2);
-	a.addWordVertical("Greetings",1,1);
-	a.addWordDiagonalNE("Find",5,3);
-	a.addWordDiagonalSE("Me",4,8);
-	a.addWordVertical("charlmagne",0,5);
-	System.out.println(a);
-	a.addWordHorizontal("energy",3,2);
-	a.addWordVertical("cologne",2,7); 
-	System.out.println(a);
-	
-
 	File infile = new File("./wordlist.txt");
 	Scanner sc = new Scanner(infile);
-	sc.useDelimiter(" ");
+	sc.useDelimiter("\n");
 	ArrayList<String> wordList = new ArrayList<>();
 	while (sc.hasNext()){
 	    wordList.add(sc.next());
 	}
 	for (int i = 0; i < wordList.size(); i++){
-	    a.addWord(wordList.get(i), rand.nextInt(a.data.length), rand.nextInt(a.data[0].length), 0, 1);
+	    a.addWord(wordList.get(i), rand.nextInt(a.data.length), rand.nextInt(a.data[0].length), rand.nextInt(3) - 1, rand.nextInt(3) - 1);
 	}
 	System.out.println(a);
 
@@ -148,6 +136,7 @@ public class WordGrid{
 
 
     private void addWord(String word, int startY, int startX, int shiftY, int shiftX){
+	if (shiftY != 0 || shiftX != 0){
 	int distance = checkSpace(startY, startX, shiftY, shiftX);
 	int endY = startY + distance * shiftY;
 	int endX = startX + distance * shiftX;
@@ -155,8 +144,9 @@ public class WordGrid{
 	    for (int i = 0; i < word.length(); i++){
 		data[startY + i * shiftY][startX + i * shiftX] = word.charAt(i);
 	    }
-	}else if(endY >= 0 && endY < data.length && endX >=0 && endX < data[0].length){
+	}else if(endY >= 0 && endY < data.length && endX >= 0 && endX < data[0].length){
 	    fixOverlap(word, endY, endX);
+	}
 	}
     }
 
