@@ -1,20 +1,27 @@
 import java.util.*;
 import java.io.*;
 public class Driver{
-    public static void main(String[]args) throws FileNotFoundException{
-	Random rand = new Random();
-	WordGrid a = new WordGrid(10,10);
-	File infile = new File("./wordlist.txt");
-	Scanner sc = new Scanner(infile);
-	sc.useDelimiter("\n");
-	ArrayList<String> wordList = new ArrayList<>();
-	while (sc.hasNext()){
-	    wordList.add(sc.next());
+    public static void main(String[]args){
+	try{
+	    WordGrid a = new WordGrid(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
+	    
+	    if (args.length > 2){
+		a.setSeed(Integer.parseInt(args[2]));
+		try{
+		    a.loadWordsFromFile("wordlist.txt", !args[3].equals("1"));
+		}catch (FileNotFoundException x){    
+		}  
+	    }else{
+		try{
+		    a.loadWordsFromFile("wordlist.txt", true);
+		}catch (FileNotFoundException x){    
+		}  
+	    }
+	    
+	    System.out.println( "Find these words:\n"+ a.wordsInPuzzle() );
+	    System.out.println( a );
+	}catch (ArrayIndexOutOfBoundsException e){
+	    System.out.println("You must run: \njava Driver int row int col [int random seed int 1 if cheat code is needed or 0 otherwise]");
 	}
-	for (int i = 0; i < wordList.size(); i++){
-	    a.addWord(wordList.get(i), rand.nextInt(10), rand.nextInt(10), rand.nextInt(3) - 1, rand.nextInt(3) - 1);
-	}
-	System.out.println(a);
-
     }
 }
