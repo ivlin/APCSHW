@@ -21,11 +21,14 @@ public class WordGrid{
 	this(10,10);
     }
 
+    /**Sets the seed for the random object
+     */
     public void setSeed(int seed){
 	rand.setSeed(seed);
     }
 
-    /**Set all values in the WordGrid to spaces ' '*/
+    /**Set all values in the WordGrid to empty
+     */
     private void clear(){
 	for (int x = 0; x < data.length; x++){
 	    for (int y = 0; y < data[x].length; y++){
@@ -58,7 +61,7 @@ public class WordGrid{
 	Scanner sc = new Scanner(infile);
 	ArrayList<String> wordList = new ArrayList<>();
 	while (sc.hasNext()){
-	    wordList.add(sc.nextLine());
+	    wordList.add(sc.next());
 	}
 	randomAddList(wordList);
 	if (fillRandomLetters){
@@ -131,6 +134,7 @@ public class WordGrid{
 	}
     }
 
+    //Finds how much of the word will fit
     private int maxFit(String word, int startY, int startX, int dy, int dx){
 	if (word.length() > 0 && startY >= 0 && startY < data.length && startX >= 0 && startX < data[0].length &&
 	   (data[startY][startX] == '.' || data[startY][startX] == word.charAt(0))){
@@ -139,6 +143,7 @@ public class WordGrid{
 	return 0;
     }
     
+    //Tries to rotate the word to find an orientation that fits
     private boolean fixOverlap(String word, int intersectY, int intersectX){
         for (int i = 0; i < word.length(); i++){
 	    if (word.charAt(i) == data[intersectY][intersectX]){
