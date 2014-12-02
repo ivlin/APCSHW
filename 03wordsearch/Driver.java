@@ -4,7 +4,7 @@ public class Driver{
     public static void main(String[]args){
 	try{
 	    WordGrid a = new WordGrid(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
-	    
+
 	    if (args.length > 2){
 		a.setSeed(Integer.parseInt(args[2]));
 		try{
@@ -21,7 +21,7 @@ public class Driver{
 	    System.out.println( "Find these words:\n"+ a.wordsInPuzzle() );
 	    System.out.println( a );
 	}catch (ArrayIndexOutOfBoundsException e){
-	    System.out.println("You must run: \njava Driver int row int col [int random seed int 1 if cheat code is needed or 0 otherwise]");
+	    System.out.println("You must run: \njava Driver row col [randomSeed cheatCode?(yes = 1)");
 	}
     }
 }
