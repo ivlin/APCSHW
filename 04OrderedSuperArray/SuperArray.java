@@ -6,11 +6,12 @@ public class SuperArray{
     public static void main(String[]args){
 	SuperArray n = new SuperArray();
 	Random rand = new Random();
-	for (int i = 0; i < 14; i ++){
-	    n.add((char)(rand.nextInt(24) + 'a') + "X");
+	for (int i = 0; i < 10000; i ++){
+	    n.add((char)('a' + rand.nextInt(26)) + "");
 	}
 	System.out.println(n);
 	n.insertionSort();
+	//n.badInsertionSort();
 	System.out.println(n);
     }
 
@@ -21,6 +22,16 @@ public class SuperArray{
     public SuperArray(int l){
 	length = 0;
 	array = new String[l];
+    }
+
+    public void badInsertionSort(){
+        OrderedSuperArray c = new OrderedSuperArray();
+        while( this.size() > 0){ 
+            c.add(this.remove(0));
+        }
+        while(c.size() > 0){
+            this.add(c.remove(0));
+        }
     }
 
     public String toString(){
@@ -53,7 +64,7 @@ public class SuperArray{
     public void insertionSort(){
 	for (int x = 0; x < size();x++){
 	    int i = 0;
-	    while (i < size() && get(x).compareTo(get(i)) > 0){
+	    while (i < x && get(x).compareTo(get(i)) > 0){
 		i++;
 	    }
 	    String str = remove(x);
