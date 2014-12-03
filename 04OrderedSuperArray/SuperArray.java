@@ -1,6 +1,18 @@
+import java.util.*;
 public class SuperArray{
     private String[]array;
     private int length;
+
+    public static void main(String[]args){
+	SuperArray n = new SuperArray();
+	Random rand = new Random();
+	for (int i = 0; i < 14; i ++){
+	    n.add((char)(rand.nextInt(24) + 'a') + "X");
+	}
+	System.out.println(n);
+	n.insertionSort();
+	System.out.println(n);
+    }
 
     public SuperArray(){
 	this(10);
@@ -36,6 +48,17 @@ public class SuperArray{
 	    array[i] = array[i - 1];
 	}
 	array[index] = o;
+    }
+
+    public void insertionSort(){
+	for (int x = 0; x < size();x++){
+	    int i = 0;
+	    while (i < size() && get(x).compareTo(get(i)) > 0){
+		i++;
+	    }
+	    String str = remove(x);
+	    add(i, str);
+	}
     }
 
     public String remove(int index){
