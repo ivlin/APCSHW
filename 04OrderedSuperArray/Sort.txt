@@ -1,0 +1,5 @@
+1. Insertion sort goes through the elements of a list. For each element at index x, it keeps decrementing the index, i, from x if the difference in the values of the original element and the element at the index it is checking is negative or zero, meaning the element at x appears alphabetically before the element at i or is equal. When it finally reaches a string where the compareTo is positive, meaning the element at x should follow the element at i alphabetically, it stops. It then replaces the value at following i, or i + 1, and holds the replaced element in a string variable. It continues until it reaches the original x, thereby shifting everything to the right.
+
+2a. I searched online for a way to time and found System.currentTimeMillis(), so by getting the subtracting the current system time at the beginning of the method call from the time at the end, it would yield the amount of time it took to sort the list. I generated lists of 10000 random letters and had those letters sorted through the badInsertionSort() and my insertionSort().
+
+
