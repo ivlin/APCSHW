@@ -6,13 +6,16 @@ public class SuperArray{
     public static void main(String[]args){
 	SuperArray n = new SuperArray();
 	Random rand = new Random();
-	for (int i = 0; i < 10000; i ++){
+	for (int i = 0; i < 11110; i ++){
 	    n.add((char)('a' + rand.nextInt(26)) + "");
 	}
 	System.out.println(n);
+	long start = System.currentTimeMillis();
 	n.insertionSort();
 	//n.badInsertionSort();
+	long end = System.currentTimeMillis();
 	System.out.println(n);
+	System.out.println(end - start + "ms");
     }
 
     public SuperArray(){
@@ -63,12 +66,14 @@ public class SuperArray{
 
     public void insertionSort(){
 	for (int x = 0; x < size();x++){
-	    int i = 0;
-	    while (i < x && get(x).compareTo(get(i)) > 0){
-		i++;
+	    int i = x;
+	    while (i >= 0 && get(x).compareTo(get(i)) <= 0){
+		i--;
 	    }
-	    String str = remove(x);
-	    add(i, str);
+	    String str = get(x);
+	    for (int n = i + 1; n <= x; n ++){
+		str = set(n, str);
+	    }
 	}
     }
 
@@ -99,7 +104,7 @@ public class SuperArray{
 	return length;
     }
 
-    public void clear(){
+     public void clear(){
 	resize(10);
 	for (int i = 0; i < array.length; i++){
 	    array[i] = null;
