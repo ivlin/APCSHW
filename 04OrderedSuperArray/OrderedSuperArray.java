@@ -24,4 +24,9 @@ public class OrderedSuperArray extends SuperArray{
 	add(str);
 	return removed;
     }
+
+    public int find(String str){
+	int i = (int)size()/2;
+	
+    }
 }

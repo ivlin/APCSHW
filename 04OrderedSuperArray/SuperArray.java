@@ -3,21 +3,6 @@ public class SuperArray{
     private String[]array;
     private int length;
 
-    public static void main(String[]args){
-	SuperArray n = new SuperArray();
-	Random rand = new Random();
-	for (int i = 0; i < 11110; i ++){
-	    n.add((char)('a' + rand.nextInt(26)) + "");
-	}
-	System.out.println(n);
-	long start = System.currentTimeMillis();
-	n.insertionSort();
-	//n.badInsertionSort();
-	long end = System.currentTimeMillis();
-	System.out.println(n);
-	System.out.println(end - start + "ms");
-    }
-
     public SuperArray(){
 	this(10);
     }
@@ -128,6 +113,15 @@ public class SuperArray{
 	    throw new IndexOutOfBoundsException();
 	}
 	return replaced;
+    }
+
+    public int find(String str){
+	for (int i = 0; i < size(); i++){
+	    if (str.equals(get(i))){
+		return i;
+	    }
+	}
+	return -1;
     }
 
     public boolean inRange(int n){
