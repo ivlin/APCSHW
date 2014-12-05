@@ -24,9 +24,22 @@ public class OrderedSuperArray extends SuperArray{
 	add(str);
 	return removed;
     }
-
+    
     public int find(String str){
-	int i = (int)size()/2;
-	
+	int upper = size();
+	int lower = -1;
+	int i = (upper + lower) / 2;
+	while (upper - lower > 2){
+	    if (str.compareTo(get(i)) <= 0){
+		upper = i + 1;
+	    }else{
+		lower = i;
+	    }
+	    i = (upper + lower) / 2;
+	}
+	if (!str.equals(get(i))){
+	    return -1;
+	}
+	return i;
     }
 }

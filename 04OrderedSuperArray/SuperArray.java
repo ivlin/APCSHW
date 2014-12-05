@@ -25,7 +25,7 @@ public class SuperArray{
     public String toString(){
 	String str = "[ ";
 	for (int i = 0; i < length; i++){
-	    str += array[i] + " ";
+	    str += array[i] + i + " ";
 	}
 	return str + "]";
     }
