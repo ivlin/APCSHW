@@ -2,30 +2,26 @@ import java.util.*;
 public class Driver{
     public static void main(String[]args){
 	
-	OrderedSuperArray n = new OrderedSuperArray();
+	SuperArray n = new SuperArray();
 	Random rand = new Random();
 	
-	for (int i = 0; i < 1000; i ++){
-	    n.add((char)('a' + rand.nextInt(26)) + "");
+	for (int i = 0; i < 500000; i ++){
+	    n.add(i + "");
 	}
-	
+	//	System.out.println(n);
+
+	n.selectionSort();
+	//	n.insertionSort();
+	//System.out.println(n);	
+
 	/*
-	System.out.println(n);
-	long start = System.currentTimeMillis();
-	n.insertionSort();
-	n.badInsertionSort();
-	long end = System.currentTimeMillis();
-	System.out.println(n);
-	System.out.println(end - start + "ms");
-	*/
-
-
 	int earliest = n.find("x");
 	System.out.println(earliest);
 	if (earliest >= 0 && earliest < n.size()){
 	    System.out.println(n.get(earliest));
 	}
 	System.out.println(n);
-    } 
+	*/
+	} 
 }
 

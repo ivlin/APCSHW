@@ -12,20 +12,10 @@ public class SuperArray{
 	array = new String[l];
     }
 
-    public void badInsertionSort(){
-        OrderedSuperArray c = new OrderedSuperArray();
-        while( this.size() > 0){ 
-            c.add(this.remove(0));
-        }
-        while(c.size() > 0){
-            this.add(c.remove(0));
-        }
-    }
-
     public String toString(){
 	String str = "[ ";
 	for (int i = 0; i < length; i++){
-	    str += array[i] + i + " ";
+	    str += array[i] + " ";
 	}
 	return str + "]";
     }
@@ -59,6 +49,19 @@ public class SuperArray{
 	    for (int n = i + 1; n <= x; n ++){
 		str = set(n, str);
 	    }
+	}
+    }
+
+    public void selectionSort(){
+	for (int i = 0; i < size(); i ++){
+	    int lowest = i;
+	    for (int x = i; x < size(); x ++){
+		if (get(x).compareTo(get(lowest)) < 0){
+		    lowest = x;
+		}
+	    }
+	    String replaced = set(i, get(lowest));
+	    set(lowest, replaced);
 	}
     }
 
