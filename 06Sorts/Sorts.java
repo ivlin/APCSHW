@@ -45,5 +45,17 @@ public class Sorts{
 	    c[lowest] = replaced;
 	}
     }
+
+    public static void radix(int[] c){
+	ArrayList<ArrayList<Integer>> b = new ArrayList<ArrayList<Integer>>(10);
+	for (int x = 0; x < c.length; x++){
+	    b.add(c[x] % 10, c[x])
+	}
+	for (ArrayList<Integer> a: b){
+	    for (Integer temp: a){
+		
+	    }
+	} 
+    }
 }
     
