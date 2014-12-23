@@ -1,6 +1,14 @@
 import java.util.*;
 public class Sorts{
 
+    public static String name(){
+	return "Ivan Lin";
+    }
+
+    public static String period(){
+	return "Period 7";
+    }
+
     public static void bubble(int[] c){
 	int hold;
 	for (int x = 0; x < c.length; x ++){
